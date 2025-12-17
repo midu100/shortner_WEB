@@ -6,7 +6,7 @@ import { MdQrCode2 } from "react-icons/md";
 const LinkTable = () => {
   return (
     <>
-      <section className="py-[40px]">
+      <section className="py-[40px] mt-15">
         <div className="container">
           <div className="row">
 

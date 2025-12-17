@@ -1,5 +1,6 @@
 import React from "react";
 import LinkTable from "./common/LinkTable";
+import Btn from "./common/Btn";
 
 const Banner = () => {
   return (
@@ -25,12 +26,7 @@ const Banner = () => {
                   className="flex-1 bg-transparent outline-none text-gray-300 placeholder-gray-500 px-3 text-sm"
                 />
 
-                <button class="learn-more">
-                    <span aria-hidden="true" class="circle">
-                    <span class="icon arrow"></span>
-                    </span>
-                    <span class="button-text">Short Link</span>
-               </button>
+                <Btn />
               </div>
 
               <p className="text-gray-400 mt-4 text-[18px] text-center">

@@ -5,8 +5,7 @@ import Banner from '../components/Banner'
 
 const Home = () => {
   return (
-    <div style={{background : `url(${bg})`,backgroundRepeat :'no-repeat',backgroundSize: 'cover',backgroundPosition : 'center'}} className='h-screen'>
-        <Navbar />
+    <div  className='h-screen'>
         <Banner />
     </div>
   )

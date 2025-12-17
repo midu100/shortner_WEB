@@ -5,6 +5,9 @@ import './App.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
 import LayoutOne from './layout/LayoutOne'
 import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   
@@ -13,6 +16,9 @@ function App() {
         <Route path='/' element={<LayoutOne />} >
           <Route index element={<Home />} />
         </Route>
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/dashboard' element={<Dashboard/>} />
     </Route>
   ))
 

@@ -15,8 +15,8 @@ const Navbar = () => {
 
 
                 <div className="btns flex gap-[20px] items-center">
-                     <button class="btn"> Login </button>
-                     <button class="btn"> Register Now </button>
+                     <button className="btn"> <Link to={'/login'}>Login</Link></button>
+                     <button className="btn"> <Link to={'/register'}>Register Now</Link> </button>
                 </div>
 
             </div>
