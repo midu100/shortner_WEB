@@ -1,9 +1,54 @@
+import { useForm } from "react-hook-form"
 import { FaGoogle, FaGithub, FaFacebookF } from "react-icons/fa";
 import LoginBg from "../assets/img/LoginBg1.png";
 import Logo from '../assets/img/Logo.png'
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import Btn from "../components/common/Btn";
+import { Slide, toast } from "react-toastify";
+import { authServices } from "../api";
 
 const Register = () => {
+const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+   const onSubmit = async(data) => {
+    try {
+      
+      const res = await authServices.signup(data)
+      toast.success(res.message, {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "dark",
+          transition: Slide,
+        });
+
+        setTimeout(()=>{
+          navigate('/login')
+        },2000)
+
+
+
+    } 
+    catch (error) {
+      // console.log(error.response.data.message)
+      const errorMsg = error?.response?.data?.message
+      toast.error(errorMsg, {
+          position: "top-center",
+          autoClose: 5000,
+          theme: "dark",
+          transition: Slide,
+        });
+
+    }
+   }
+   
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${LoginBg})`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "cover",}}>
       {/* Dark overlay */}
@@ -26,7 +71,12 @@ const Register = () => {
           <label className="block text-xs text-white mb-1">
             Full Name
           </label>
-          <input type="text" placeholder="John Doe" className="w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500"/>
+          <input {...register("fullName",{ required: 'FullName is required.' })} type="text" placeholder="John Doe" className="w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500"/>
+          {
+            errors.fullName && (
+              <p className="text-amber-300 text-sm font-semibold mb-1">{errors?.fullName?.message}</p>
+            )
+          }
         </div>
 
         {/* Email */}
@@ -34,7 +84,12 @@ const Register = () => {
           <label className="block text-xs text-white mb-1">
             Email
           </label>
-          <input type="email" placeholder="username@gmail.com" className=" w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500 "/>
+          <input  type="email" {...register("email",{ required: 'Email is required.' })} placeholder="username@gmail.com" className=" w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500 "/>
+          {
+            errors.email && (
+              <p className="text-amber-300 text-sm font-semibold mb-1">{errors?.email?.message}</p>
+            )
+          }
         </div>
 
         {/* Password */}
@@ -42,13 +97,17 @@ const Register = () => {
           <label className="block text-xs text-white mb-1">
             Password
           </label>
-          <input type="password" placeholder="Password" className=" w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500"/>
+          <input {...register("password",{ required: 'Password is required.' })} type="password" placeholder="Password" className=" w-full px-4 py-2 rounded-md bg-white text-gray-700 text-sm outline-none focus:ring-2 focus:ring-blue-500"/>
+          {
+            errors.password && (
+              <p className="text-amber-300 text-sm font-semibold mb-1">{errors?.password?.message}</p>
+            )
+          }
         </div>
 
         {/* Register Button */}
-        <button className="w-full bg-blue-900 hover:bg-blue-950 text-white py-2.5 rounded-md text-sm font-medium transition " >
-          Create account
-        </button>
+        <Btn onClick={handleSubmit(onSubmit)} Name={'Register'} />
+
 
         {/* Divider */}
         <p className="text-center text-xs text-blue-100 my-5">

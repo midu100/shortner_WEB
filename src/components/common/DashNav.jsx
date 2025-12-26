@@ -4,8 +4,10 @@ import { FaBell, FaLink, FaSignOutAlt } from "react-icons/fa";
 import Logo from "../../assets/img/Logo.png";
 import Btn from "./Btn";
 
-const DashNav = () => {
+const DashNav = ({Name}) => {
   return (
+
+    
     <>
       <nav className="navbar-b py-[12px]  backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
         <div className="container">
@@ -26,7 +28,7 @@ const DashNav = () => {
                 className="flex-1 bg-transparent outline-none text-sm text-white placeholder-gray-400"
               />
 
-              <Btn />
+              <Btn Name={'Generate'}/>
             </div>
 
             {/* Right Side */}
@@ -35,7 +37,7 @@ const DashNav = () => {
               {/* Profile + Logout */}
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full cursor-pointer border border-white/10">
                 <span className="text-sm text-white">welcome,</span>
-                <span className="text-sm text-[#dc58ea] font-semibold">Mohammed</span>
+                <span className="text-sm text-[#dc58ea] font-semibold">{Name}</span>
               </div>
                 <button className=""><FaSignOutAlt className="text-white/70 text-xl hover:text-white transition" /></button>
 

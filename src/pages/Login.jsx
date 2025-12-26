@@ -1,9 +1,50 @@
 import { FaGoogle, FaGithub, FaFacebookF } from "react-icons/fa";
 import LoginBg from "../assets/img/LoginBg1.png";
 import Logo from '../assets/img/Logo.png'
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import Btn from "../components/common/Btn";
+import { authServices } from "../api";
+import { Slide, toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate()
+
+  const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm()
+
+    const handleLogin = async(data)=>{
+      try {
+        
+        const res = await authServices.login(data)
+        toast.success(res.message, {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "dark",
+          transition: Slide,
+        });
+
+        // setTimeout(()=>{
+        //   navigate('/dashboard')
+        // },2000)
+      } 
+      
+      catch (error) {
+         const errorMsg = error?.response?.data?.message
+          toast.error(errorMsg, {
+              position: "top-center",
+              autoClose: 5000,
+              theme: "dark",
+              transition: Slide,
+            });
+      }
+    }
+
+
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-cover bg-center"
@@ -42,6 +83,7 @@ const Login = () => {
         <div className="mb-4">
           <label className="block text-xs text-white mb-1">Email</label>
           <input
+          {...register("email",{ required: 'Email is required.' })}
             type="email"
             placeholder="username@gmail.com"
             className="
@@ -61,6 +103,7 @@ const Login = () => {
         <div className="mb-3">
           <label className="block text-xs text-white mb-1">Password</label>
           <input
+            {...register("password",{ required: 'Password is required.' })}
             type="password"
             placeholder="Password"
             className="
@@ -87,21 +130,7 @@ const Login = () => {
         </div>
 
         {/* Button */}
-        <button
-          className="
-            w-full
-            bg-blue-900
-            hover:bg-blue-950
-            text-white
-            py-2.5
-            rounded-md
-            text-sm
-            font-medium
-            transition
-          "
-        >
-          Sign in
-        </button>
+        <Btn onClick={handleSubmit(handleLogin)} Name={'Login'}/>
 
         {/* Divider */}
         <p className="text-center text-xs text-blue-100 my-5">
