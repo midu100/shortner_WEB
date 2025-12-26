@@ -6,9 +6,17 @@ import { useForm } from "react-hook-form";
 import Btn from "../components/common/Btn";
 import { authServices } from "../api";
 import { Slide, toast } from "react-toastify";
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+
+
+
 
 const Login = () => {
   const navigate = useNavigate()
+
+  const [pass,showPass] = useState(false)
 
   const {
       register,
@@ -28,9 +36,9 @@ const Login = () => {
           transition: Slide,
         });
 
-        // setTimeout(()=>{
-        //   navigate('/dashboard')
-        // },2000)
+        setTimeout(()=>{
+          navigate('/dashboard')
+        },2000)
       } 
       
       catch (error) {
@@ -100,24 +108,41 @@ const Login = () => {
         </div>
 
         {/* Password */}
-        <div className="mb-3">
-          <label className="block text-xs text-white mb-1">Password</label>
-          <input
-            {...register("password",{ required: 'Password is required.' })}
-            type="password"
-            placeholder="Password"
-            className="
-              w-full
-              px-4 py-2
-              rounded-md
-              bg-white
-              text-gray-700
-              text-sm
-              outline-none
-              focus:ring-2 focus:ring-blue-500
-            "
-          />
-        </div>
+       <div className="mb-3 relative">
+  <label className="block text-xs text-white mb-1">Password</label>
+
+  <input
+    {...register("password",{ required: 'Password is required.' })}
+    type={pass ? 'text' : 'password'}
+    placeholder="Password"
+    className="
+      w-full
+      px-4 py-2
+      pr-10
+      rounded-md
+      bg-white
+      text-gray-700
+      text-sm
+      outline-none
+      focus:ring-2 focus:ring-blue-500
+    "
+  />
+
+  <div
+    onClick={()=>showPass(!pass)}
+    className="
+      absolute
+      right-3
+      top-[30px]
+      text-gray-500
+      hover:text-gray-700
+      cursor-pointer
+    "
+  >
+    {pass ?<FaEyeSlash /> : <FaEye />}
+  </div>
+</div>
+
 
         {/* Forgot */}
         <div className="flex justify-end mb-5">
