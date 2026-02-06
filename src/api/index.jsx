@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getCookie } from '../components/common/Services';
 
 const api = axios.create({
-    baseURL : import.meta.env.VITE_API_BASE_URL || 'http://localhost:2222/',
+    baseURL : import.meta.env.VITE_API_BASE_URL || 'https://url-shortner-1-kx0s.onrender.com',
     withCredentials: true,
     headers : {
         "content-Type" : "application/json",
